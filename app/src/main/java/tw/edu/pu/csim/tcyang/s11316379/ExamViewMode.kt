@@ -1,13 +1,26 @@
 package tw.edu.pu.csim.tcyang.s11316379
 
 import androidx.lifecycle.ViewModel
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.State
 
 class ExamViewModel : ViewModel() {
-    // 成績狀態
-    private val _score = mutableStateOf(0)
-    val score: State<Int> = _score
+    // 成績
+    var score = mutableIntStateOf(0)
 
-    // 之後可以加其他狀態變數
+    // 目前碰撞結果訊息
+    var message = mutableStateOf("")
+
+    // 是否暫停中
+    var isPaused = mutableStateOf(false)
+
+    // 加分
+    fun addScore() {
+        score.intValue += 1
+    }
+
+    // 減分
+    fun minusScore() {
+        score.intValue -= 1
+    }
 }

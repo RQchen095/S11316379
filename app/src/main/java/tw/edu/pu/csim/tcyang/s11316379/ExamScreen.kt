@@ -105,7 +105,7 @@ fun ExamScreen(viewModel: ExamViewModel = viewModel()) {
             Text(text = "瑪利亞基金會服務大考驗", fontSize = 20.sp)
 
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "作者：資管二B 陳若綺", fontSize = 16.sp)
+            Text(text = "作者：資管三B 你的姓名", fontSize = 16.sp)
 
             Spacer(modifier = Modifier.height(10.dp))
             Text(
