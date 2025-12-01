@@ -2,7 +2,14 @@ package tw.edu.pu.csim.tcyang.s11316379
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,60 +27,93 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ExamScreen(viewModel: ExamViewModel = viewModel()) {
-    // 取得螢幕寬度與高度 (px)
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current
+
     val screenWidthPx = with(density) { configuration.screenWidthDp.dp.toPx() }
     val screenHeightPx = with(density) { configuration.screenHeightDp.dp.toPx() }
 
-    // 黃色背景，內容置中
-    Column(
+    // 圖示大小 300px 轉換成 dp
+    val iconSizeDp = with(density) { 300f.toDp() }
+    // 螢幕一半高度轉成 dp
+    val halfScreenHeightDp = with(density) { (screenHeightPx / 2).toDp() }
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Yellow),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .background(Color.Yellow)
     ) {
-        // 圓形圖片
+        // ===== 中間內容 =====
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            // 圓形圖片
+            Image(
+                painter = painterResource(id = R.drawable.happy),
+                contentDescription = "主圖",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(CircleShape)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(text = "瑪利亞基金會服務大考驗", fontSize = 20.sp)
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(text = "作者：資管三B 你的姓名", fontSize = 16.sp)
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(
+                text = "螢幕大小：${screenWidthPx} * ${screenHeightPx}",
+                fontSize = 14.sp
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Text(text = "成績：${viewModel.score.value}分", fontSize = 14.sp)
+        }
+
+        // ===== 嬰幼兒：左邊，下方切齊螢幕 1/2 =====
         Image(
-            painter = painterResource(id = R.drawable.happy), // 換成你的圖片
-            contentDescription = "圖片",
-            contentScale = ContentScale.Crop,
+            painter = painterResource(id = R.drawable.role0),
+            contentDescription = "嬰幼兒",
             modifier = Modifier
-                .size(200.dp)
-                .clip(CircleShape)
+                .size(iconSizeDp)
+                .offset(x = 0.dp, y = halfScreenHeightDp - iconSizeDp)
         )
 
-        Spacer(modifier = Modifier.height(10.dp)) // 間距 10dp
-
-        // 標題文字
-        Text(
-            text = "瑪利亞基金會服務大考驗",
-            fontSize = 20.sp
+        // ===== 兒童：右邊，下方切齊螢幕 1/2 =====
+        Image(
+            painter = painterResource(id = R.drawable.role1),
+            contentDescription = "兒童",
+            modifier = Modifier
+                .size(iconSizeDp)
+                .align(Alignment.TopEnd)
+                .offset(x = 0.dp, y = halfScreenHeightDp - iconSizeDp)
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // 作者資訊 - 改成你的系級與姓名
-        Text(
-            text = "作者：資管二B 陳若綺",
-            fontSize = 16.sp
+        // ===== 成人：左下角 =====
+        Image(
+            painter = painterResource(id = R.drawable.role2),
+            contentDescription = "成人",
+            modifier = Modifier
+                .size(iconSizeDp)
+                .align(Alignment.BottomStart)
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // 顯示螢幕寬度與高度
-        Text(
-            text = "螢幕大小：${screenWidthPx} * ${screenHeightPx}",
-            fontSize = 14.sp
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // 成績
-        Text(
-            text = "成績：${viewModel.score.value}分",
-            fontSize = 14.sp
+        // ===== 一般民眾：右下角 =====
+        Image(
+            painter = painterResource(id = R.drawable.role3),
+            contentDescription = "一般民眾",
+            modifier = Modifier
+                .size(iconSizeDp)
+                .align(Alignment.BottomEnd)
         )
     }
 }
