@@ -54,6 +54,7 @@ fun ExamScreen(viewModel: ExamViewModel = viewModel()) {
         R.drawable.service1,
         R.drawable.service2,
         R.drawable.service3,
+        R.drawable.service0,
     )
 
     // 隨機圖示索引
